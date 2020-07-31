@@ -1,39 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo } from 'react';
+import { useStory } from '../hooks/useStory';
 
-import { getStory } from '../services/hackerNewsApi';
-
-import {
-  StoryWrapper,
-  StoryTitle,
-  StoryMeta,
-  StoryMetaElement,
-} from '../styles/StoryStyles';
 import { mapTime } from '../mappers/mapTime';
 
-export const Story = ({ storyId }) => {
-  const [story, setStory] = useState({});
+import { StoryMetaInfo } from '../elements/StoryMetaInfo';
+import { StoryTitleInfo } from '../elements/StoryTitleInfo';
 
-  useEffect(() => {
-    getStory(storyId).then((data) => data && data.url && setStory(data));
-  }, []);
+import { StoryWrapper } from '../styles/StoryStyles';
 
-  return story && story.url ? (
-    <StoryWrapper data-testid='story'>
-      <StoryTitle>
-        <a href={story.url}>{story.title}</a>
-      </StoryTitle>
-      <StoryMeta>
-        <span data-testid='story-by'>
-          <StoryMetaElement color='#000'>By:</StoryMetaElement> {story.by}
-        </span>
-      </StoryMeta>
-      <StoryMeta>
-        <span data-testid='story-by'>
-          <StoryMetaElement color='#000'>Posted:</StoryMetaElement>
-          {` `}
-          {mapTime(story.time)}
-        </span>
-      </StoryMeta>
-    </StoryWrapper>
-  ) : null;
-};
+export const Story = memo(function Story({ storyId }) {
+  const { story } = useStory(storyId);
+  const { by, title, url } = story;
+
+  const time = mapTime(story.time);
+
+  return (
+    story &&
+    url && (
+      <StoryWrapper data-testid='story'>
+        <StoryTitleInfo title={title} url={url} />
+        <StoryMetaInfo id='story-by' name='By:' meta={by} />
+        <StoryMetaInfo id='story-time' name='Posted:' meta={time} />
+      </StoryWrapper>
+    )
+  );
+});

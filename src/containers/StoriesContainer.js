@@ -1,9 +1,7 @@
-import React, { useState, useEffect, memo } from 'react';
+import React from 'react';
+import { useStories } from '../hooks/useStories';
 
-import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-
-import { getStoryIds } from '../services/hackerNewsApi';
-import { Story } from '../components/Story';
+import { StoryList } from '../components/StoryList';
 
 import {
   GlobalStyle,
@@ -11,21 +9,13 @@ import {
 } from '../styles/StoriesContainerStyles';
 
 export const StoriesContainer = () => {
-  const { count } = useInfiniteScroll();
-  const [storyIds, setStoryIds] = useState([]);
-
-  useEffect(() => {
-    getStoryIds().then((data) => setStoryIds(data));
-  }, []);
-
+  const { count, storyIds } = useStories();
   return (
     <>
       <GlobalStyle />
       <StoriesContainerWrapper data-test-id='stories-container'>
         <h1>Hacker News Stories</h1>
-        {storyIds.slice(0, count).map((storyId) => (
-          <Story key={storyId} storyId={storyId} />
-        ))}
+        <StoryList storyIds={storyIds} count={count} />
       </StoriesContainerWrapper>
     </>
   );
