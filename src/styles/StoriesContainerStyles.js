@@ -28,4 +28,26 @@ export const StoriesContainerWrapper = styled.main`
   max-width: 1140px;
   padding: 20px 15px;
   margin: auto;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search-title {
+    width: 50%;
+    height: 30px;
+    text-indent: 10px;
+    border-radius: 3px;
+    background-color: #dadada;
+    border: none;
+    transition: all 0.2s ease-out;
+
+    &:focus {
+      outline: none;
+      background-color: #dadada42;
+      transition: all 0.2s ease-in;
+    }
+  }
 `;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStories } from '../hooks/useStories';
 
+import { Header } from '../components/Header';
 import { StoryList } from '../components/StoryList';
 
 import {
@@ -14,7 +15,7 @@ export const StoriesContainer = () => {
     <>
       <GlobalStyle />
       <StoriesContainerWrapper data-test-id='stories-container'>
-        <h1>Hacker News Stories</h1>
+        <Header />
         <StoryList storyIds={storyIds} count={count} />
       </StoriesContainerWrapper>
     </>
