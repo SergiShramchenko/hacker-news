@@ -50,4 +50,25 @@ export const StoriesContainerWrapper = styled.main`
       transition: all 0.2s ease-in;
     }
   }
+
+  .options {
+    display: flex;
+    justify-content: flex-end;
+
+    &__name {
+      font-size: 13px;
+      background-color: #bedaf3;
+      // background-color: #a7d6ff;
+      padding: 5px 10px 5px 10px;
+      letter-spacing: 1px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s ease-out;
+
+      &:hover {
+        background-color: #dae2e8;
+        transition: all 0.2s ease-in;
+      }
+    }
+  }
 `;

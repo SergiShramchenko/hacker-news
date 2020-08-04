@@ -1,14 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { getStoryIds } from '../services/hackerNewsApi';
+import { getStoryIds } from '../redux/stories/stories.actions';
 
 export const useStories = () => {
   const { count } = useInfiniteScroll();
-  const [storyIds, setStoryIds] = useState([]);
+
+  const storyIds = useSelector(({ stories }) => stories.storyIds);
+
+  const dispatch = useDispatch();
+  const fetchStories = () => dispatch(getStoryIds());
 
   useEffect(() => {
-    getStoryIds().then((data) => setStoryIds(data));
+    fetchStories();
   }, []);
 
   return {

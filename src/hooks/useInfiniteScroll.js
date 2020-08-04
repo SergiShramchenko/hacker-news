@@ -29,12 +29,12 @@ export const useInfiniteScroll = () => {
     }
 
     setLoading(false);
-  }, [loading]);
+  }, [loading, count]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   return { count };
 };
